@@ -26,11 +26,14 @@ class BetterPlayerListVideoPlayer extends StatefulWidget {
   final BetterPlayerListVideoPlayerController
       betterPlayerListVideoPlayerController;
 
+  final Function stateChangeNotifier;
+
   const BetterPlayerListVideoPlayer(this.dataSource,
       {this.configuration = const BetterPlayerConfiguration(),
       this.playFraction = 0.6,
       this.autoPlay = true,
       this.autoPause = true,
+      this.stateChangeNotifier,
       this.betterPlayerListVideoPlayerController,
       Key key})
       : assert(dataSource != null, "Data source can't be null"),
@@ -89,10 +92,12 @@ class _BetterPlayerListVideoPlayerState
         if (visibilityInfo.visibleFraction >= widget.playFraction) {
           if (widget.autoPlay && initialized && !isPlaying && !_isDisposing) {
             _betterPlayerController.play();
+            widget.stateChangeNotifier.call(true);
           }
         } else {
           if (widget.autoPause && initialized && isPlaying && !_isDisposing) {
             _betterPlayerController.pause();
+            widget.stateChangeNotifier.call(false);
           }
         }
       },

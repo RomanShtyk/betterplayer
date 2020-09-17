@@ -50,6 +50,7 @@ class _VideoListWidgetState extends State<VideoListWidget> {
                 //key: Key(videoListData.hashCode.toString()),
                 playFraction: 0.8,
                 betterPlayerListVideoPlayerController: controller,
+                stateChangeNotifier: (isPlaying) => print("$isPlaying my custom is playing"),
               ),
               aspectRatio: 16 / 9),
           Padding(
